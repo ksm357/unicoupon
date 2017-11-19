@@ -1,0 +1,48 @@
+<div class="container">
+
+  <div class="bg-faded p-4 my-4 text-center">
+    <hr class="divider">
+    <h2 class="text-center text-lg text-uppercase my-0">
+      <strong>Sign Up</strong>
+    </h2>
+    <hr class="divider">
+    
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+    
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+    
+      <div class="field">
+        <%= f.label :schoolName %><br />
+        <%= f.select :schoolName, options_for_select([['대학교선택'], ['가천대학교'], ['국민대학교'], ['동국대학교']]), autofocus: true %>
+      </div>
+      
+      <div class="field">
+        <%= f.label :userName %><br />
+        <%= f.text_field :userName, autofocus: true %>
+      </div>
+    <br>
+      <div class="actions">
+        <%= f.submit "Sign up", class: 'btn btn-secondary' %>
+      </div>
+    <% end %>
+    
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

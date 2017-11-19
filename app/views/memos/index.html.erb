@@ -1,0 +1,11 @@
+<div class="container">
+
+      <div class="review-menu">
+          <button class="btn btn-first"><%= link_to '글쓰기', new_memo_path %></button>
+      </div>
+      
+      <% @memos.each do |memo| %>
+        <%= render partial: "memo", object: memo %>
+      <% end %>
+      
+</div>

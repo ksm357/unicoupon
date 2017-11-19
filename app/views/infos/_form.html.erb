@@ -1,0 +1,26 @@
+<%= form_for(@info, html: {multipart: true}) do |f| %>
+    학교 이름 :
+    <%= f.select :schoolName, options_for_select([
+        ['대학교선택'], ['가천대학교'], ['국민대학교'], ['동국대학교']
+    ]) %><br>
+
+    가게 이름 : 
+    <%= f.text_field :title %><br>
+    
+    가게 주소(자동 좌표 변환) : <%= f.text_field :address %><br>
+    
+    가게 url : <%= f.text_field :url %> <br>
+    
+    가게 정보 :
+    
+    <%= f.text_area :content , :class => "tinymce", :rows => 20, :cols => 100 %>
+    
+    <%= tinymce %>
+    
+    <br>
+    대표 사진 등록
+    <%= f.file_field :info_image_url %>
+
+    <br>
+    <%= f.submit '추가하기' %>
+<% end %>

@@ -1,0 +1,102 @@
+
+
+<div class="container">
+
+    <div class="bg-faded p-4 my-4" style="text-align: center">
+        <h3><%= @user.email  %></h3><br>
+        
+        <%= link_to 'Edit', edit_user_registration_path , :style => 'float: right; font-size: 1em;'%> 
+    </div>
+    
+    <div class="bg-faded p-4 my-4">
+        <hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0">
+            <strong>Coupon</strong>
+        </h2>
+        <hr class="divider">
+        <div class="row" style="text-align: center;">
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+        </div>
+        <div class="row"style="text-align: center;">
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+            <div class="col-md-2 mb-2 mb-md-0 coupon">
+                <div class="card coupon nostamp">
+                </div>
+            </div>
+        </div>
+            <br>
+        <div style="text-align:center">
+            <button class="btn btn-secondary addCoupon" onclick="addCoupon()">쿠폰찍기</button>
+            <button class="btn btn-secondary useCoupon" onclick="useCoupon()">쿠폰사용</button>
+        </div>
+    </div>
+    
+
+    <div class="bg-faded p-4 my-4">
+        <hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0">
+            <strong>Barcode</strong>
+        </h2>
+        <hr class="divider">
+        <div class="row" style="text-align: center">
+            <div class="col-lg-12">
+                <img class="img-fluid" src="/assets/barcode.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function addCoupon(){
+        $('.nostamp:first').addClass('stamp')
+        $('.nostamp:first').removeClass('nostamp')
+    }
+    
+    function useCoupon(){
+        $('.stamp').addClass('nostamp')
+        $('.stamp').removeClass('stamp')
+    }
+</script>

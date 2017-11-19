@@ -1,0 +1,156 @@
+<div class="container">
+    <div class="bg-faded p-4 my-4">
+    <% if(user_signed_in?) %>
+        <hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0">
+            <strong><%= @schoolName %> 맛집</strong>
+        </h2>
+        <hr class="divider">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="embed-responsive embed-responsive-16by9 map-container mb-4 mb-lg-0" id="map" style="width:100%; height:600px"></div>
+            </div>
+        </div>
+        <hr>
+        <div style="text-align: center;">
+            <hr class="divider">
+            <h2 class="text-center text-lg text-uppercase my-0">
+                <strong>다른 학교 놀러가기</strong>
+            </h2>
+            <hr class="divider">
+            <a class="btn btn-secondary" href="/infos/가천대학교">가천대학교</a>
+            <a class="btn btn-secondary" href="/infos/국민대학교">국민대학교</a>
+            <a class="btn btn-secondary" href="/infos/동국대학교">동국대학교</a>
+        </div>
+        
+    <% else %>
+        <p>로그인 이후 사용 가능합니다</p>
+    <% end %>
+    </div>
+</div>
+
+<script>
+ 
+    <% if user_signed_in? %>
+        <% if(@schoolName == '가천대학교') %> 
+            var centerLoc = new naver.maps.LatLng(37.4507450, 127.1288470); //가천대학교 좌표값
+                // 지도 기본 위치
+            var map = new naver.maps.Map('map', {
+                center: centerLoc,
+                zoom: 10,
+                scaleControl: false,
+                logoControl: false,
+                mapDataControl: false,
+                // mapTypeControl: true,
+                zoomControl: true,
+                minZoom: 1,
+                zoomControlOptions: {
+                    position: naver.maps.Position.TOP_RIGHT
+                },
+                scrollWheel: false
+            });
+        <% elsif(@schoolName == '국민대학교') %>
+            var centerLoc = new naver.maps.LatLng(37.6096410, 126.9976970); //국민대학교 좌표값
+                // 지도 기본 위치
+            var map = new naver.maps.Map('map', {
+                center: centerLoc,
+                zoom: 10,
+                scaleControl: false,
+                logoControl: false,
+                mapDataControl: false,
+                // mapTypeControl: true,
+                zoomControl: true,
+                minZoom: 1,
+                zoomControlOptions: {
+                    position: naver.maps.Position.TOP_RIGHT
+                },
+                scrollWheel: false
+            });
+        <% elsif(@schoolName == '동국대학교') %>
+            var centerLoc = new naver.maps.LatLng(37.5575370, 127.0007750); //동국대학교 좌표값 
+                // 지도 기본 위치
+            var map = new naver.maps.Map('map', {
+                center: centerLoc,
+                zoom: 10,
+                scaleControl: false,
+                logoControl: false,
+                mapDataControl: false,
+                // mapTypeControl: true,
+                zoomControl: true,
+                minZoom: 1,
+                zoomControlOptions: {
+                    position: naver.maps.Position.TOP_RIGHT
+                },
+                scrollWheel: false
+            });
+        <% end %>
+    <% end %>
+    
+//마커
+    var marker = new Array();
+    var stores = new Array();
+    var contentString = new Array();
+    var infowindow = new Array();
+
+    // 지도 기본 위치
+        var map = new naver.maps.Map('map', {
+            center: centerLoc,
+            zoom: 10,
+            scaleControl: false,
+            logoControl: false,
+            mapDataControl: false,
+            // mapTypeControl: true,
+            zoomControl: true,
+            minZoom: 1,
+            zoomControlOptions: {
+                position: naver.maps.Position.TOP_RIGHT
+            },
+            scrollWheel: false
+        });
+   
+    <% @storeInfo.each do |i| %>
+    
+        stores[<%= i.id %>] = new naver.maps.LatLng(<%= i.location_lat %>, <%= i.location_lng %>);
+    
+        var markerOptions = {
+            position: stores[<%= i.id %>],
+            map: map,
+            zIndex: 1,
+            // icon: {
+            //     size: new naver.maps.Size(30,38),// 마커 사이즈
+            //     scaledSize: new naver.maps.Size(30,38),
+            //     origin: new naver.maps.Point(0, 0), // origin 기본값 (0, 0)
+            //     anchor: new naver.maps.Point(14, 35) // anchor속성은 이미지의 중앙 하단 포인터를 기본값으로 설정
+            // }     
+        };
+        
+        marker[<%= i.id %>] = new naver.maps.Marker(markerOptions);
+
+        // 마커 안에 정보 넣기 
+        // db에 있는 정보 불러내기 아직 구현 못함
+        contentString[<%= i.id %>] = [
+            '<div class="iw_inner">',
+            '    <%= image_tag i.info_image_url, class: "infoImage img-rounded" %><br>',
+            // '    <image style="height: 175px" class="img-rounded" src="http://imgnews.naver.net/image/018/2012/08/08/1344404042.012836_PS12080800178.jpg?type=w540">',
+            '    <div class="inforate"><span class="controlsize"><%= i.title %></span></div>',
+            '    <p><%= i.address %><br>',
+            '   </p>',
+            '   <a class="btn btn-primary" onclick="mapOnclick()" href="<%= i.url %>">상세보기</a>',
+            '</div>'
+        ].join('');
+        
+        infowindow[<%= i.id %>] = new naver.maps.InfoWindow({
+            content: contentString[<%= i.id %>]
+        });
+    
+        naver.maps.Event.addListener(marker[<%= i.id %>], "click", function(e) {
+            if (infowindow[<%= i.id %>].getMap()) {
+                infowindow[<%= i.id %>].close();
+            } else {
+                infowindow[<%= i.id %>].open(map, marker[<%= i.id %>]);
+                //map.setCenter(stores[<%#= i.id %>]);
+            }
+        });
+        
+    <% end %>
+</script>

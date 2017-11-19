@@ -1,0 +1,7 @@
+<br><br><br><br><br>
+
+<%= form_for @memo do |f| %>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.text_field :title, label: '제목' %>
+  <%= f.submit %>
+<% end %>

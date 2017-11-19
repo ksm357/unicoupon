@@ -1,0 +1,42 @@
+<header>
+  <div class="tagline-upper text-center text-heading text-shadow mt-5 d-none d-lg-block" style="color:purple">UniCoupon</div>
+  <div class="tagline-lower text-center text-expanded text-shadow text-uppercase mb-5 d-none d-lg-block" style="color:purple">Most handleable Coupon</div>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-faded py-lg-4">
+    <div class="container">
+        <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">UniCoupon</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded" href="/">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item px-lg-4">
+                    <% if user_signed_in? %>
+                      <a class="nav-link text-uppercase text-expanded" href = '/infos/<%= current_user.schoolName %>'>Map</a>
+                    <% else %>
+                      <a class="nav-link text-uppercase text-expanded" href ="/infos">Map</a>
+                    <% end %>
+                </li>
+                
+                <% if user_signed_in?#로그인 상태이면 %>
+                  <li class="nav-item px-lg-4">
+                      <%= link_to 'Review', memos_path, class: 'nav-link text-uppercase text-expanded' %>
+                  </li>
+                  <li class="nav-item px-lg-4"><%= link_to 'My Page', my_page_path(current_user.id), class: 'nav-link text-uppercase text-expanded' %></li>
+                <% end %>
+                
+                <% if user_signed_in?#로그인 상태이면 %>
+                  <li class="nav-item px-lg-4"><%= link_to 'Logout', destroy_user_session_path, class: 'nav-link text-uppercase text-expanded', method: :delete %></li>
+                <% else #로그인 안한 상태이면 %>
+                  <li class="nav-item px-lg-4"><%= link_to 'Login', new_user_session_path, class: 'nav-link text-uppercase text-expanded' %></li>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+  </nav>
+</header>

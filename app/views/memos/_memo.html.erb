@@ -1,0 +1,15 @@
+<div class="bg-faded p-4 my-4">
+    <div class="card card-inverse">
+        <p style="text-align:right" class="text-shadow text-black">
+            <% if current_user.is_like?(memo) %>
+                <%= link_to "👎", memo_like_path(memo), method: "post" %>
+            <% else %>
+                <%= link_to "👍", memo_like_path(memo), method: "post" %>
+            <% end %>
+            <%= memo.likes.size %>💕
+        </p>
+        <h4 class="card-title text-shadow text-black text-uppercase mb-0"><%= memo.user.userName %></h2>
+        <br>
+        <h4 class="card-title text-shadow text-black text-uppercase mb-0"><%= memo.title %></h2>
+    </div>
+</div>
